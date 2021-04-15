@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/client';
 
-import { fauna } from '../../services/fauna';
 import { query as q } from 'faunadb'
+import { fauna } from '../../services/fauna';
 import { stripe } from '../../services/stripe';
 
 type User = {
@@ -32,7 +32,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!customerId) {
       const stripeCustomer = await stripe.customers.create({
         email: session.user.email,
-        // metadata
       })
 
       await fauna.query(
@@ -45,7 +44,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           }
         )
       )
-
       customerId = stripeCustomer.id
     }
   
