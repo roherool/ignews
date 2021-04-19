@@ -36,7 +36,7 @@ export default NextAuth({
                 )
               ),
               q.Match(
-                q.Index('sbuscription_by_status'),
+                q.Index('subscription_by_status'),
                 "active"
               )
             ])
